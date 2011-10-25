@@ -1,0 +1,35 @@
+body {
+    width: 270px;
+    height: 120px;
+
+    margin: 0;
+    padding: 15px;
+}
+
+#console {
+    font-family: Consolas;
+}
+
+label {
+    display: block;
+
+    font-family: 'Lucida Grande';
+    font-size: 13px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+
+    margin-bottom: 10px;
+}
+
+input[type="button"] {
+    float: right;
+}

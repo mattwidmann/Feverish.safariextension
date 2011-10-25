@@ -2,12 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Author</key>
+	<string>Matt Widmann</string>
 	<key>Builder Version</key>
-	<string>7534.48.3</string>
+	<string>7534.51.22</string>
 	<key>CFBundleDisplayName</key>
 	<string>Fever</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.fever</string>
+	<string>net.mattwidmann.fever</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
@@ -16,6 +18,19 @@
 	<string>1</string>
 	<key>Chrome</key>
 	<dict>
+		<key>Popovers</key>
+		<array>
+			<dict>
+				<key>Filename</key>
+				<string>popover.html</string>
+				<key>Height</key>
+				<real>150</real>
+				<key>Identifier</key>
+				<string>feverPopover</string>
+				<key>Width</key>
+				<real>300</real>
+			</dict>
+		</array>
 		<key>Toolbar Items</key>
 		<array>
 			<dict>
@@ -23,24 +38,40 @@
 				<string>feverToolbarItem</string>
 				<key>Image</key>
 				<string>feverToolbarIcon.png</string>
+				<key>Include By Default</key>
+				<true/>
 				<key>Label</key>
-				<string>Subscribe in Fever</string>
+				<string>Add to Fever</string>
+				<key>Popover</key>
+				<string>feverPopover</string>
 				<key>Tool Tip</key>
-				<string>Subscribe to current webpage in Fever</string>
+				<string>Add current webpage to Fever</string>
 			</dict>
 		</array>
 	</dict>
 	<key>Content</key>
 	<dict>
 		<key>Scripts</key>
-		<dict/>
+		<dict>
+			<key>End</key>
+			<array>
+				<string>injected.js</string>
+			</array>
+		</dict>
 	</dict>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
 	<dict>
 		<key>Website Access</key>
-		<dict/>
+		<dict>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>All</string>
+		</dict>
 	</dict>
+	<key>Website</key>
+	<string>http://mattwidmann.net/feverextension</string>
 </dict>
 </plist>
