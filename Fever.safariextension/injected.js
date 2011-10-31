@@ -3,9 +3,7 @@ safari.self.addEventListener('message', respondToMessage, false)
 function respondToMessage (event) {
     if (event.name !== 'updateFeeds') return
     // don't run within an iframe
-    if (window.top !== window) {
-        return;
-    }
+    if (window.top !== window) return
 
     var links = document.getElementsByTagName('link')
     var feeds = []
