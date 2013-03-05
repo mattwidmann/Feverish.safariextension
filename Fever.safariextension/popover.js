@@ -4,8 +4,6 @@ safari.application.addEventListener('popover', popoverHandler, false)
 function popoverHandler (event) {
     document.feed.title.value = safari.application.activeBrowserWindow.activeTab.title
     document.feed.url.value = ''
-
-    safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('updateFeeds')
 }
 
 // validate the toolbar item for each tab
@@ -13,6 +11,8 @@ safari.application.addEventListener('validate', validateHandler, false)
 
 function validateHandler (event) {
     event.target.disabled = !event.target.browserWindow.activeTab.url
+
+    safari.application.activeBrowserWindow.activeTab.dispatchMessage('updateFeeds')
 }
 
 // submit form in popover
