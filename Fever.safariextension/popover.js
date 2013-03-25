@@ -55,9 +55,7 @@ function sendPost (url, data, callback) {
 
 function newRequest (callback) {
     var request = new XMLHttpRequest()
-
     request.addEventListener('load', function (event) { callback(request) }, false)
-
     return request
 }
 
@@ -70,17 +68,18 @@ function manageEndpoint (parameters) {
 function unreadItems (callback) {
     var request = newRequest(function (response) {
         var json = JSON.parse(response.responseText)
-		console.log(json)
-		var items = json.unread_item_ids.split(',').length
+		var unread = json.unread_item_ids.split(',')
+		var items = unread.length
+		console.log(items)
+		console.log(unread[0].length)
+		if (items == 1 && unread[0].length == 0) items = 0
 		callback(items)
 	})
 
 	var data = 'api_key=' + apiKey()
 	request.open('POST', feverEndpoint('unread_item_ids'))
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-	request.setRequestHeader("Content-Length", data.length)
 	request.send(data)
-	console.log(request)
 }
 
 function sendGet (url, callback) {
