@@ -39,7 +39,6 @@ function submitAction (event) {
 safari.application.addEventListener('message', respondToMessage, false)
 
 function respondToMessage (event) {
-	console.log(event)
     if (event.name !== 'feedsForTab') return
 
     if (!event.message) return
@@ -73,8 +72,6 @@ function unreadItems (callback) {
         var json = JSON.parse(response.responseText)
 		var unread = json.unread_item_ids.split(',')
 		var items = unread.length
-		console.log(items)
-		console.log(unread[0].length)
 		if (items == 1 && unread[0].length == 0) items = 0
 		callback(items)
 	})
