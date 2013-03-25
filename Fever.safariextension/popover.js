@@ -12,6 +12,10 @@ safari.application.addEventListener('validate', validateHandler, false)
 function validateHandler (event) {
     event.target.disabled = !event.target.browserWindow.activeTab.url
 
+    unreadItems(function (items) {
+        event.target.badge = items
+    })
+
     safari.application.activeBrowserWindow.activeTab.dispatchMessage('updateFeeds')
 }
 
@@ -63,6 +67,22 @@ function manageEndpoint (parameters) {
 
 // official API
 
+function unreadItems (callback) {
+    var request = newRequest(function (response) {
+        var json = JSON.parse(response.responseText)
+		console.log(json)
+		var items = json.unread_item_ids.split(',').length
+		callback(items)
+	})
+
+	var data = 'api_key=' + apiKey()
+	request.open('POST', feverEndpoint('unread_item_ids'))
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+	request.setRequestHeader("Content-Length", data.length)
+	request.send(data)
+	console.log(request)
+}
+
 function sendGet (url, callback) {
     var request = newRequest(callback)
 
@@ -71,7 +91,7 @@ function sendGet (url, callback) {
 }
 
 function feverEndpoint (parameters) {
-    return safari.extension.secureSettings.url + '/?api&api_key=' + apiKey() + '&' + parameters
+    return safari.extension.secureSettings.url + '/?api&' + parameters
 }
 
 function apiKey () {
