@@ -5,9 +5,9 @@ function popoverHandler (event) {
     document.feed.title.value = safari.application.activeBrowserWindow.activeTab.title
     document.feed.url.value = ''
 
-	if (safari.application.activeBrowserWindow.activeTab.page.dispatchMessage) {
-		safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('updateFeeds')
-	}
+    if (safari.application.activeBrowserWindow.activeTab.page.dispatchMessage) {
+        safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('updateFeeds')
+    }
 }
 
 // validate the toolbar item for each tab
@@ -16,11 +16,11 @@ safari.application.addEventListener('validate', validateHandler, false)
 function validateHandler (event) {
     event.target.disabled = !event.target.browserWindow.activeTab.url
 
-	if (safari.extension.settings.showUnread) {
-		unreadItems(function (items) {
-			event.target.badge = items
-		})
-	}
+    if (safari.extension.settings.showUnread) {
+        unreadItems(function (items) {
+            event.target.badge = items
+        })
+    }
 }
 
 // submit form in popover
@@ -70,16 +70,16 @@ function manageEndpoint (parameters) {
 function unreadItems (callback) {
     var request = newRequest(function (response) {
         var json = JSON.parse(response.responseText)
-		var unread = json.unread_item_ids.split(',')
-		var items = unread.length
-		if (items == 1 && unread[0].length == 0) items = 0
-		callback(items)
-	})
+        var unread = json.unread_item_ids.split(',')
+        var items = unread.length
+        if (items == 1 && unread[0].length == 0) items = 0
+        callback(items)
+    })
 
-	var data = 'api_key=' + apiKey()
-	request.open('POST', feverEndpoint('unread_item_ids'))
-	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-	request.send(data)
+    var data = 'api_key=' + apiKey()
+    request.open('POST', feverEndpoint('unread_item_ids'))
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    request.send(data)
 }
 
 function sendGet (url, callback) {
