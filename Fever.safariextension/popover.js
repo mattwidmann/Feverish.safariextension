@@ -4,6 +4,10 @@ safari.application.addEventListener('popover', popoverHandler, false)
 function popoverHandler (event) {
     document.feed.title.value = safari.application.activeBrowserWindow.activeTab.title
     document.feed.url.value = ''
+
+	if (safari.application.activeBrowserWindow.activeTab.page.dispatchMessage) {
+		safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('updateFeeds')
+	}
 }
 
 // validate the toolbar item for each tab
@@ -12,11 +16,11 @@ safari.application.addEventListener('validate', validateHandler, false)
 function validateHandler (event) {
     event.target.disabled = !event.target.browserWindow.activeTab.url
 
-    unreadItems(function (items) {
-        event.target.badge = items
-    })
-
-    safari.application.activeBrowserWindow.activeTab.dispatchMessage('updateFeeds')
+	if (safari.extension.settings.showUnread) {
+		unreadItems(function (items) {
+			event.target.badge = items
+		})
+	}
 }
 
 // submit form in popover
@@ -35,13 +39,12 @@ function submitAction (event) {
 safari.application.addEventListener('message', respondToMessage, false)
 
 function respondToMessage (event) {
+	console.log(event)
     if (event.name !== 'feedsForTab') return
 
     if (!event.message) return
 
     document.feed.url.value = event.message[0]
-
-    // could check if feed already exists
 }
 
 // unofficial API
