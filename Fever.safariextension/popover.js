@@ -8,6 +8,12 @@ function popoverHandler (event) {
     if (safari.application.activeBrowserWindow.activeTab.page.dispatchMessage) {
         safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('updateFeeds')
     }
+
+    if (safari.extension.settings.showUnread) {
+        unreadItems(function (items) {
+            event.target.badge = items
+        })
+    }
 }
 
 // validate the toolbar item for each tab
@@ -15,12 +21,6 @@ safari.application.addEventListener('validate', validateHandler, false)
 
 function validateHandler (event) {
     event.target.disabled = !event.target.browserWindow.activeTab.url
-
-    if (safari.extension.settings.showUnread) {
-        unreadItems(function (items) {
-            event.target.badge = items
-        })
-    }
 }
 
 // submit form in popover
