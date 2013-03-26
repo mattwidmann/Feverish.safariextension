@@ -11,7 +11,7 @@ function popoverHandler (event) {
 
     if (safari.extension.settings.showUnread) {
         unreadItems(function (items) {
-            event.target.badge = items
+            safari.extension.toolbarItems[0].badge = items
         })
     }
 }

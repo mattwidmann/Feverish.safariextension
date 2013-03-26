@@ -42,7 +42,7 @@
 		<key>Key</key>
 		<string>showUnread</string>
 		<key>Title</key>
-		<string>Show Unread</string>
+		<string>Show Unread Count</string>
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>
